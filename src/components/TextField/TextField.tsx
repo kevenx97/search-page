@@ -1,6 +1,8 @@
 'use client'
 
-import { ChangeEvent, useState } from "react"
+import { ChangeEvent, useState } from 'react'
+import { SearchIcon, CloseIcon } from '@/components/icons'
+import styles from './TextField.module.scss'
 
 interface TextFieldProps {
   name: string
@@ -17,12 +19,31 @@ export function TextField({ name, value, onChange }: TextFieldProps) {
     onChange(text)
   }
 
+  const onClearText = () => {
+    setInputValue('')
+    onChange('')
+  }
+
+  const renderClearButton = (value: string) => {
+    if (!value.length) return
+    return (
+      <button className={`${styles.float} ${styles.right}`} onClick={onClearText}>
+        <CloseIcon />
+      </button>
+    )
+  }
+
   return (
-    <input 
-      type="text"
-      name={name}
-      value={inputValue}
-      onChange={onChangeText}
-    />
+    <div className={styles.container}>
+      <SearchIcon className={`${styles.float} ${styles.left}`} />
+      <input
+        type="text"
+        name={name}
+        value={inputValue}
+        onChange={onChangeText}
+        className={styles.input}
+      />
+      {renderClearButton(inputValue)}
+    </div>
   )
 }
