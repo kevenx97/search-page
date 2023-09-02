@@ -2,7 +2,7 @@
 
 import { ChangeEvent, useState } from 'react'
 import { SearchIcon, CloseIcon } from '@/components/icons'
-import styles from './TextField.module.scss'
+import styles from './textField.module.scss'
 
 interface TextFieldProps {
   name: string
@@ -27,7 +27,7 @@ export function TextField({ name, value, onChange }: TextFieldProps) {
   const renderClearButton = (value: string) => {
     if (!value.length) return
     return (
-      <button className={`${styles.float} ${styles.right}`} onClick={onClearText}>
+      <button aria-label="Limpar" className={`${styles.float} ${styles.right}`} onClick={onClearText}>
         <CloseIcon />
       </button>
     )
@@ -42,6 +42,7 @@ export function TextField({ name, value, onChange }: TextFieldProps) {
         value={inputValue}
         onChange={onChangeText}
         className={styles.input}
+        aria-label="Campo de pesquisa"
       />
       {renderClearButton(inputValue)}
     </div>
