@@ -1,9 +1,8 @@
 import { HomeScreen } from '@/screens/home'
-import styles from './page.module.scss'
 
-export default function Home() {
+export default function HomePage() {
   return (
-    <main className={styles.main}>
+    <main>
       <HomeScreen />
     </main>
   )

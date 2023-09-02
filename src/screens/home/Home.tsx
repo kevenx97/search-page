@@ -1,19 +1,18 @@
 'use client'
 
-import Image from 'next/image'
 import { useState } from 'react'
+import { useRouter } from 'next/navigation'
 import { TextField } from '@/components/TextField'
 import styles from './home.module.scss'
 import { Navbar } from '@/components/Navbar'
+import { Logo } from '@/components/Logo'
 
 export function Home() {
-  const [seachEnabled, setSeachEnabled] = useState(false)
-  const onChangeText = (text: string) => {
-    if (text.length) {
-      setSeachEnabled(true)
-    } else {
-      setSeachEnabled(false)
-    }
+  const router = useRouter()
+  const [searchValue, setSearchValue] = useState('')
+
+  const onSubmit = () => {
+    router.push(`search/${searchValue}`)
   }
 
   return (
@@ -24,15 +23,16 @@ export function Home() {
           <span>Next JS</span>
         </div>
       </Navbar>
-      <Image
-        src="/google-logo.svg"
-        alt="Google Logo"
-        width={350}
-        height={120}
-        priority
-      />
-      <TextField name="search" value="" onChange={onChangeText} />
-      <button disabled={!seachEnabled} aria-label="Buscar" className={styles.searchButton}>Buscar</button>
+      <Logo width={350} height={120} />
+      <TextField name="search" value={searchValue} setValue={setSearchValue} />
+      <button
+        aria-label="Buscar"
+        disabled={!searchValue.length}
+        className={styles.searchButton}
+        onClick={onSubmit}
+      >
+        Buscar
+      </button>
     </section>
   )
 }

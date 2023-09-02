@@ -1,2 +1,8 @@
 $gray-dark-color: #424345;
 $gray-light-color: #eaeaea;
+
+@mixin center() {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

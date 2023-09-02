@@ -1,27 +1,23 @@
 'use client'
 
-import { ChangeEvent, useState } from 'react'
+import { ChangeEvent } from 'react'
 import { SearchIcon, CloseIcon } from '@/components/icons'
 import styles from './textField.module.scss'
 
 interface TextFieldProps {
   name: string
   value: string
-  onChange: (text: string) => void
+  setValue: (text: string) => void
 }
 
-export function TextField({ name, value, onChange }: TextFieldProps) {
-  const [inputValue, setInputValue] = useState(value || '')
-
+export function TextField({ name, value, setValue }: TextFieldProps) {
   const onChangeText = (event: ChangeEvent<HTMLInputElement>) => {
     const text = event.target.value
-    setInputValue(text)
-    onChange(text)
+    setValue(text)
   }
 
   const onClearText = () => {
-    setInputValue('')
-    onChange('')
+    setValue('')
   }
 
   const renderClearButton = (value: string) => {
@@ -39,12 +35,12 @@ export function TextField({ name, value, onChange }: TextFieldProps) {
       <input
         type="text"
         name={name}
-        value={inputValue}
+        value={value}
         onChange={onChangeText}
         className={styles.input}
         aria-label="Campo de pesquisa"
       />
-      {renderClearButton(inputValue)}
+      {renderClearButton(value)}
     </div>
   )
 }
