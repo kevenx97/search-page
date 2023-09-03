@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import { Roboto } from 'next/font/google'
-import { Footer } from '@/components/Footer/Footer'
+import { Footer } from '@/components'
 import './globals.scss'
 
 export const metadata: Metadata = {

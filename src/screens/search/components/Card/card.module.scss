@@ -1,0 +1,35 @@
+@import '@/styles/variables';
+
+.container {
+  width: 100%;
+  color: $gray-dark-color;
+  display: flex;
+  flex-direction: column;
+  position: sticky;
+  top: 90px;
+  gap: 7px;
+  padding: 10px;
+  border-radius: 3px;
+  border: 1px solid $gray-light-color;
+  background-color: white;
+  a {
+    font-size: 14px;
+  }
+  p {
+    font-size: 18px;
+    font-weight: 600;
+  }
+  a:hover {
+    text-decoration: underline;
+  }
+  span {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 1250px) {
+  .container {
+    max-width: 350px;
+    margin: auto;
+  }
+}

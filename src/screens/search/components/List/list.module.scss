@@ -1,0 +1,26 @@
+@import '@/styles/variables';
+
+.container {
+  width: 100%;
+  color: $gray-dark-color;
+  li {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 26px;
+    gap: 7px;
+    a {
+      font-size: 14px;
+    }
+    p {
+      color: blue;
+      font-size: 18px;
+      cursor: pointer;
+    } 
+    p:hover, a:hover {
+      text-decoration: underline;
+    }
+    span {
+      font-size: 16px;
+    }
+  }
+}

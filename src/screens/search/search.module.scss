@@ -6,4 +6,37 @@
     @include center();
     gap: 10px;
   }
+  .section {
+    max-width: 1200px;
+    margin: 16px auto;
+    padding: 0 16px;
+    .content {
+      display: flex;
+      gap: 30px;
+    }
+    .listContainer {
+      flex: 0.6
+    }
+    .cardContainer {
+      flex: 0.4
+    }
+  }
+  .mb {
+    margin-bottom: 26px;
+  }
+}
+
+@media (max-width: 1250px) {
+  .container {
+    .section {
+      .cardContainer {
+        background-color: rgba(0,0,0,0.4);
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        left: 0;
+        top: 0;
+      }  
+    }
+  }
 }

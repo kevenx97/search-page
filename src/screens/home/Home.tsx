@@ -2,10 +2,8 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { TextField } from '@/components/TextField'
+import { TextField, Navbar, Logo } from '@/components'
 import styles from './home.module.scss'
-import { Navbar } from '@/components/Navbar'
-import { Logo } from '@/components/Logo'
 
 export function Home() {
   const router = useRouter()
