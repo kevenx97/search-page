@@ -9,42 +9,52 @@ import styles from './search.module.scss'
 import { Card, List } from './components'
 
 export function Search({ params }: SearchPageProps) {
-  const value = params.text
   const [loading, setLoading] = useState(true)
-  const [searchValue, setSearchValue] = useState(value)
   const [animals, setAnimals] = useState<Animals[]>([])
+  const [searchValue, setSearchValue] = useState(params.text || '')
   const [animal, setAnimal] = useState<Animals | null>(null)
   const debounceTimeout = useRef<NodeJS.Timeout | null>(null)
 
   const renderSkeletons = (length: number) => {
-    return createArray(length).map((_, index) => (
-      <div className={styles.mb} key={index}>
-        <SkeletonLine widthPercentage={'30%'} height={16} />
-        <SkeletonLine widthPercentage={'40%'} height={20} />
-        <SkeletonLine widthPercentage={'60%'} height={16} />
-      </div>
-    ))
+    if (loading) {
+      return createArray(length).map((_, index) => (
+        <div className={styles.skeletonContent} key={index}>
+          <SkeletonLine widthPercentage={'40%'} height={16} />
+          <SkeletonLine widthPercentage={'70%'} height={20} />
+          <SkeletonLine widthPercentage={'100%'} height={16} />
+        </div>
+      ))
+    }
   }
 
-  const selectListItem = (animal: Animals) => {
-    setAnimal(animal)
-  }
-
-  const renderList = (data: Animals[], text: string) => {
-    return (
-      <div className={styles.listContainer}>
-        {!animals.length && <p>No results found for: <b>{text}</b></p>}
-        <List data={animals} onSelectListItem={selectListItem} />
-      </div>
-    )
+  const renderList = () => {
+    if (!loading) {
+      return (
+        <div className={styles.listContainer}>
+          {!animals.length && !!searchValue.length && (
+            <p>
+              No results found for: 
+              <b> {searchValue}</b>
+            </p>
+          )}
+          <List 
+            data={animals} 
+            onSelectListItem={(animal: Animals) => setAnimal(animal)} 
+          />
+        </div>
+      )
+    }
   }
   
   const renderCard = () => {
     if (!loading && animal) {
       return (
-        <div className={styles.cardContainer}>
-          <Card data={animal} />
-        </div>
+        <>
+          <div className={styles.cardContainer}>
+            <Card data={animal} onClose={() => setAnimal(null)} />
+          </div>
+          <div className={styles.background}></div>
+        </>
       )
     }
   }
@@ -76,9 +86,9 @@ export function Search({ params }: SearchPageProps) {
         </div>
       </Navbar>
       <section className={styles.section}>
-        {loading && renderSkeletons(6)}
+        {renderSkeletons(6)}
         <div className={styles.content}>
-          {!loading && renderList(animals, searchValue)}
+          {renderList()}
           {renderCard()}
         </div>
       </section>
