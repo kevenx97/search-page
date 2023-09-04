@@ -18,7 +18,7 @@ export function TextField({ name, value, setValue }: TextFieldProps) {
   const onClearText = () => {
     setValue('')
   }
-  const renderClearButton = (value: string) => {
+  const renderClearButton = () => {
     if (value.length) {
       return (
         <button
@@ -42,7 +42,7 @@ export function TextField({ name, value, setValue }: TextFieldProps) {
         className={styles.input}
         aria-label="Campo de pesquisa"
       />
-      {renderClearButton(value)}
+      {renderClearButton()}
     </div>
   )
 }
