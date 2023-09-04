@@ -8,6 +8,7 @@ import { useSearch } from './hooks/useSearch'
 import styles from './search.module.scss'
 
 export function Search({ params }: SearchPageProps) {
+  const decodedString = decodeURIComponent(params.text)
   // eslint-disable-next-line prettier/prettier
   const {
     loading,
@@ -16,7 +17,7 @@ export function Search({ params }: SearchPageProps) {
     setAnimal,
     searchValue,
     setSearchValue
-  } = useSearch(params.text)
+  } = useSearch(decodedString)
 
   const renderSkeletons = (length: number) => {
     if (loading) {
@@ -57,7 +58,7 @@ export function Search({ params }: SearchPageProps) {
           <TextField
             name="search"
             value={searchValue}
-            setValue={setSearchValue}
+            onChange={setSearchValue}
           />
         </div>
       </Navbar>

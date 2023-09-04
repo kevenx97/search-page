@@ -1,25 +1,40 @@
 'use client'
 
-import { ChangeEvent } from 'react'
+import { ChangeEvent, KeyboardEvent, useEffect, useState } from 'react'
 import { SearchIcon, CloseIcon } from '@/components/icons'
-import styles from './textField.module.scss'
+import styles from './text-field.module.scss'
+import { useDebounce } from '@/hooks/useDebounce'
 
 interface TextFieldProps {
   name: string
   value: string
-  setValue: (text: string) => void
+  onChange: (text: string) => void
+  onKeyDown?: (event: KeyboardEvent<HTMLInputElement>) => void
 }
 
-export function TextField({ name, value, setValue }: TextFieldProps) {
+export function TextField({
+  name,
+  value,
+  onChange,
+  onKeyDown,
+}: TextFieldProps) {
+  const [state, setState] = useState(value)
+  const debouncedValue = useDebounce(state, 600)
+
   const onChangeText = (event: ChangeEvent<HTMLInputElement>) => {
     const text = event.target.value
-    setValue(text)
+    setState(text)
   }
   const onClearText = () => {
-    setValue('')
+    setState('')
   }
+
+  useEffect(() => {
+    onChange(debouncedValue)
+  }, [debouncedValue, onChange])
+
   const renderClearButton = () => {
-    if (value.length) {
+    if (state.length) {
       return (
         <button
           aria-label="Limpar"
@@ -37,7 +52,8 @@ export function TextField({ name, value, setValue }: TextFieldProps) {
       <input
         type="text"
         name={name}
-        value={value}
+        value={state}
+        onKeyDown={onKeyDown}
         onChange={onChangeText}
         className={styles.input}
         aria-label="Campo de pesquisa"
