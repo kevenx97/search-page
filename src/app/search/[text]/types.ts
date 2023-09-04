@@ -1,3 +1,3 @@
 export interface SearchPageProps {
-  params: { text: string };
+  params: { text: string }
 }

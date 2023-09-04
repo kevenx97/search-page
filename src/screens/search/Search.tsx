@@ -8,7 +8,8 @@ import { useSearch } from './hooks/useSearch'
 import styles from './search.module.scss'
 
 export function Search({ params }: SearchPageProps) {
-  const { 
+  // eslint-disable-next-line prettier/prettier
+  const {
     loading,
     animal,
     animals,
@@ -30,22 +31,12 @@ export function Search({ params }: SearchPageProps) {
   }
   const renderList = () => {
     if (!loading) {
-      return (
-        <AnimalList
-          data={animals} 
-          onSelectAnimalListItem={setAnimal} 
-        />
-      )
+      return <AnimalList data={animals} onSelectAnimalListItem={setAnimal} />
     }
   }
   const renderCard = () => {
     if (!loading && animal) {
-      return (
-        <AnimalCard 
-          data={animal} 
-          onClose={() => setAnimal(null)} 
-        />
-      )
+      return <AnimalCard data={animal} onClose={() => setAnimal(null)} />
     }
   }
   const renderNoResultsMessage = () => {
@@ -63,19 +54,19 @@ export function Search({ params }: SearchPageProps) {
       <Navbar>
         <div className={styles.field}>
           <Logo width={150} height={60} />
-          <TextField name="search" value={searchValue} setValue={setSearchValue} />
+          <TextField
+            name="search"
+            value={searchValue}
+            setValue={setSearchValue}
+          />
         </div>
       </Navbar>
       <section className={styles.section}>
         {renderSkeletons(6)}
         {renderNoResultsMessage()}
         <div className={styles.content}>
-          <div className={styles.leftContent}>
-            {renderList()}
-          </div>
-          <div className={styles.rightContent}>
-            {renderCard()}
-          </div>
+          <div className={styles.leftContent}>{renderList()}</div>
+          <div className={styles.rightContent}>{renderCard()}</div>
         </div>
       </section>
     </div>

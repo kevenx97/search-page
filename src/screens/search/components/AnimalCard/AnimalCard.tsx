@@ -6,7 +6,7 @@ import { CloseIcon } from '@/components/icons'
 import styles from './animal-card.module.scss'
 
 interface AnimalCardProps {
-  data: Animals,
+  data: Animals
   onClose: () => void
 }
 
@@ -15,9 +15,9 @@ export function AnimalCard({ data, onClose }: AnimalCardProps) {
     <>
       <div className={styles.container}>
         <button
-          aria-label="Botão voltar" 
+          aria-label="Botão voltar"
           className={styles.backButton}
-          onClick={onClose} 
+          onClick={onClose}
         >
           <CloseIcon />
         </button>
@@ -29,7 +29,9 @@ export function AnimalCard({ data, onClose }: AnimalCardProps) {
           layout="responsive"
           priority
         />
-        <a target="_blank" href={data.url}>{data.url}</a>
+        <a target="_blank" href={data.url}>
+          {data.url}
+        </a>
         <p>{data.title}</p>
         <span>{data.description}</span>
       </div>

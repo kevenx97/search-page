@@ -15,20 +15,22 @@ export function TextField({ name, value, setValue }: TextFieldProps) {
     const text = event.target.value
     setValue(text)
   }
-
   const onClearText = () => {
     setValue('')
   }
-
   const renderClearButton = (value: string) => {
-    if (!value.length) return
-    return (
-      <button aria-label="Limpar" className={`${styles.float} ${styles.right}`} onClick={onClearText}>
-        <CloseIcon />
-      </button>
-    )
+    if (value.length) {
+      return (
+        <button
+          aria-label="Limpar"
+          className={`${styles.float} ${styles.right}`}
+          onClick={onClearText}
+        >
+          <CloseIcon />
+        </button>
+      )
+    }
   }
-
   return (
     <div className={styles.container}>
       <SearchIcon className={`${styles.float} ${styles.left}`} />

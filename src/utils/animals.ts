@@ -2,11 +2,11 @@ import { AnimalModule, faker } from '@faker-js/faker'
 
 export interface Animals {
   type: keyof AnimalModule
-  id: number,
-  url: string,
-  title: string,
-  description: string,
-  image: string,
+  id: number
+  url: string
+  title: string
+  description: string
+  image: string
 }
 
 const getImage = () => faker.image.animals(644, 362, true)
@@ -16,7 +16,7 @@ const getText = () => faker.lorem.sentences()
 const getTitle = (type: keyof AnimalModule) => faker.animal[type]()
 
 const data = [...new Array(100)].map((_, index) => {
-  const type = getType();
+  const type = getType()
   return {
     type,
     id: index + 1,

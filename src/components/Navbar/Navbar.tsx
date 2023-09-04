@@ -11,9 +11,7 @@ interface NavbarProps {
 export function Navbar({ children }: NavbarProps) {
   return (
     <div className={styles.container}>
-      <div>
-        {children}
-      </div>
+      <div>{children}</div>
       <div className={styles.center}>
         <MenuIcon className={styles.menu} />
         <Image

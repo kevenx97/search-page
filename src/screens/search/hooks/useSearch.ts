@@ -12,15 +12,15 @@ export function useSearch(value: string) {
     if (searchValue.length) {
       debounceTimeout.current = setTimeout(() => {
         setAnimal(null)
-          setLoading(true)
-          getAnimals(searchValue)
-            .then((data) => setAnimals(data))
-            .finally(() => setLoading(false))
+        setLoading(true)
+        getAnimals(searchValue)
+          .then((data) => setAnimals(data))
+          .finally(() => setLoading(false))
       }, 600)
     }
     return () => {
       if (debounceTimeout.current) {
-        clearTimeout(debounceTimeout.current);
+        clearTimeout(debounceTimeout.current)
       }
     }
   }, [searchValue])
@@ -31,6 +31,6 @@ export function useSearch(value: string) {
     animals,
     setAnimal,
     searchValue,
-    setSearchValue
+    setSearchValue,
   }
 }

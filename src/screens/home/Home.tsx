@@ -12,7 +12,6 @@ export function Home() {
   const onSubmit = () => {
     router.push(`search/${searchValue}`)
   }
-
   return (
     <section className={styles.container}>
       <Navbar>
