@@ -12,6 +12,7 @@
   border-radius: 3px;
   border: 1px solid $gray-light-color;
   background-color: white;
+  z-index: 1;
   .backButton {
     width: 30px;
     height: 30px;
@@ -39,5 +40,23 @@
   }
   span {
     font-size: 16px;
+  }
+}
+.background {
+  display: none;
+  background-color: rgba(0, 0, 0, 0.4);
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+}
+
+@media (max-width: 1250px) {
+  .background {
+    display: flex;
   }
 }

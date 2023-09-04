@@ -1,19 +1,21 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
 import { Navbar, Logo, TextField, SkeletonLine } from '@/components'
 import { SearchPageProps } from '@/app/search/[text]/types'
-import { Animals, getAnimals } from '@/utils/animals'
 import createArray from '@/utils/createArray'
+import { AnimalCard, AnimalList } from './components'
+import { useSearch } from './hooks/useSearch'
 import styles from './search.module.scss'
-import { Card, List } from './components'
 
 export function Search({ params }: SearchPageProps) {
-  const [loading, setLoading] = useState(true)
-  const [animals, setAnimals] = useState<Animals[]>([])
-  const [searchValue, setSearchValue] = useState(params.text || '')
-  const [animal, setAnimal] = useState<Animals | null>(null)
-  const debounceTimeout = useRef<NodeJS.Timeout | null>(null)
+  const { 
+    loading,
+    animal,
+    animals,
+    setAnimal,
+    searchValue,
+    setSearchValue
+  } = useSearch(params.text)
 
   const renderSkeletons = (length: number) => {
     if (loading) {
@@ -26,57 +28,36 @@ export function Search({ params }: SearchPageProps) {
       ))
     }
   }
-
   const renderList = () => {
     if (!loading) {
       return (
-        <div className={styles.listContainer}>
-          {!animals.length && !!searchValue.length && (
-            <p>
-              No results found for: 
-              <b> {searchValue}</b>
-            </p>
-          )}
-          <List 
-            data={animals} 
-            onSelectListItem={(animal: Animals) => setAnimal(animal)} 
-          />
-        </div>
+        <AnimalList
+          data={animals} 
+          onSelectAnimalListItem={setAnimal} 
+        />
       )
     }
   }
-  
   const renderCard = () => {
     if (!loading && animal) {
       return (
-        <>
-          <div className={styles.cardContainer}>
-            <Card data={animal} onClose={() => setAnimal(null)} />
-          </div>
-          <div className={styles.background}></div>
-        </>
+        <AnimalCard 
+          data={animal} 
+          onClose={() => setAnimal(null)} 
+        />
       )
     }
   }
-
-  useEffect(() => {
-    debounceTimeout.current = setTimeout(() => {
-      if (searchValue.length) {
-        setAnimal(null)
-        setLoading(true)
-        getAnimals(searchValue)
-          .then((data) => setAnimals(data))
-          .finally(() => setLoading(false))
-      }
-    }, 600)
-
-    return () => {
-      if (debounceTimeout.current) {
-        clearTimeout(debounceTimeout.current);
-      }
+  const renderNoResultsMessage = () => {
+    if (!loading && !animals.length && !!searchValue.length) {
+      return (
+        <p>
+          No results found for:
+          <b> {searchValue}</b>
+        </p>
+      )
     }
-  }, [searchValue])
-
+  }
   return (
     <div className={styles.container}>
       <Navbar>
@@ -87,9 +68,14 @@ export function Search({ params }: SearchPageProps) {
       </Navbar>
       <section className={styles.section}>
         {renderSkeletons(6)}
+        {renderNoResultsMessage()}
         <div className={styles.content}>
-          {renderList()}
-          {renderCard()}
+          <div className={styles.leftContent}>
+            {renderList()}
+          </div>
+          <div className={styles.rightContent}>
+            {renderCard()}
+          </div>
         </div>
       </section>
     </div>
